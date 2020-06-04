@@ -16,7 +16,7 @@ class App extends Component {
         toggled: false
       },
       sorts: {
-        type: 'name'
+        type: ''
       }
     }
   }
@@ -29,6 +29,20 @@ class App extends Component {
     })
   }
 
+  sortHogsArray = () => {
+    const hogs = this.state.hogs
+    const sortBy = this.state.sorts.type
+    const isChecked = this.state.filters.toggled
+    if (sortBy === 'name') {
+      return hogs.sort((hog1, hog2) => hog1.name.localeCompare(hog2.name))
+    } else if (sortBy === 'weight') {
+      return hogs.sort((hog1, hog2) => hog1.weight - hog2.weight)
+    } else if (isChecked) {
+      return hogs.filter(hog => hog.greased === true)
+    }
+    return hogs 
+  }
+
   onChangeFilter = (event) => {
     this.setState({
       filters: {
@@ -36,6 +50,11 @@ class App extends Component {
       }
     })
   }
+
+  // filterHogsArray = () => {
+  //   const hogs = this.state.hogs
+  //   return hogs.filter(hog => hog.greased === true)
+  // }
 
   onClickHiddenHogs = (event) => {
     console.log('hides hogs')
@@ -53,7 +72,8 @@ class App extends Component {
           onClickHiddenHogs={this.onClickHiddenHogs}
         />
         <HogsBrowser
-          hogs={this.state.hogs}
+          // hogs={this.filterHogsArray()}
+          hogs={this.sortHogsArray()}
         />
       </div>
     );

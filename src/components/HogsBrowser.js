@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Component } from "react";
 import HogCard from './HogCard'
 
-class HogsBrowser extends React.Component {
+class HogsBrowser extends Component {
 
   renderHogCards = () => {
     return this.props.hogs.map(hog => {
